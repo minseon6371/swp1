@@ -1,10 +1,12 @@
 from wsgiref.simple_server import make_server
+from cgi import parse_qs, escape
+import json
 
 def application(environ, start_response):
     d = parse_qs(environ['QUERY_STRING'])
 
-    xstr = d.get('x', [''])[0]
-    ystr = d.get('y', [''])[0]
+    xstr = escape(d.get('x', [''])[0])
+    ystr = escape(d.get('y', [''])[0])
     x = int(xstr)
     y = int(ystr)
 
