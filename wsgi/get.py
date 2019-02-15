@@ -1,5 +1,5 @@
 from wsgiref.simple_server import make_server
-from cgi import parse_qs, qs_escape
+from cgi import parse_qs, escape
 
 html = """
 <html>
@@ -11,17 +11,20 @@ html = """
         <p>
             Age: <input type="text" name="age" value="%(age)s">
         </p>
+        <p>
+            <input type="submit" value="Submit">
+        </p>
     </form>
     <p>
-        Name: %s(name)s</br>
-        Age: %s(age)s</br>
+        Name: %(name)s</br>
+        Age: %(age)s</br>
     </p>
 </body>
 </html>
 """
 
 def application(environ, start_response):
-    d = parse_qs(environ['QUERY_STRING']
+    d = parse_qs(environ['QUERY_STRING'])
 
     name = d.get('name', [''])[0]
     age = d.get('age', [''])[0]
