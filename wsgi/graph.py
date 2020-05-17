@@ -7,13 +7,13 @@ def application(environ, start_response):
         try:
             with open('graph.png', 'rb') as f:
                 response_body = f.read()
-                start_response('200 OK', [
-                    ('Content-Type', 'image/png'),
-                    ('Content-Length', str(len(response_body)))
-                ])
-                return [response_body]
         except:
-            pass
+            response_body = ''
+        start_response('200 OK', [
+            ('Content-Type', 'image/png'),
+            ('Content-Length', str(len(response_body)))
+        ])
+        return [response_body]
     else:
         d = parse_qs(environ['QUERY_STRING'])
         a = d.get('a', [''])[0]
